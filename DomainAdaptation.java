@@ -54,7 +54,7 @@ public class DomainAdaptation
 	if (args.length > 0) 
 	{
 	    model.train(seedSet, selfTrainingSet);
-	    System.out.println("Checkpoint!");
+	    System.out.println("Finished domaina adaptation. Beginning test.");
 	    model.test(testSet);
 	}
     }
