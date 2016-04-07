@@ -76,6 +76,9 @@ public class DomainAdaptation
 	    List<? extends HasWord> sentence = getInputSentence(t);
 	    selfTrainingUnlabeled.add(getInputSentence(t));
 	}
+	
+	System.out.println(String.format("Labeling %d self-training examples.",
+					 selfTrainingUnlabeled.size()));
 
 	// Label self-training set.
 	List<Tree> selfTrainingLabeled = seedParser.parseMultiple(selfTrainingUnlabeled);
@@ -83,6 +86,10 @@ public class DomainAdaptation
 	// Concatenate seed and self-training data for transfer learning.
 	Treebank trainSet = seed;
 	trainSet.addAll(selfTrainingLabeled);
+
+	System.out.println("Transfering learning complete.");
+	System.out.println(String.format("Retraining on %d examples.",
+					 trainSet.size()));
 
 	// Train with concatenated dataset.
 	this.parser = LexicalizedParser.trainFromTreebank(trainSet, this.parserOptions);
